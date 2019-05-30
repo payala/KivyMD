@@ -142,6 +142,7 @@ from kivy.graphics.vertex_instructions import Ellipse, RoundedRectangle
 from kivy.lang import Builder
 from kivy.metrics import dp
 from kivy.uix.button import Button
+from kivy.uix.image import Image
 from kivy.utils import get_color_from_hex
 from kivy.properties import StringProperty, BoundedNumericProperty,\
     ListProperty, AliasProperty, BooleanProperty, NumericProperty,\
@@ -260,6 +261,21 @@ Builder.load_string('''
             radius: [root._radius, ]
 
     text_color: root.specific_text_color
+
+
+<MDFillRoundFlatIconButton>
+
+    #text_color: root.specific_text_color
+    BoxLayout:
+        spacing: dp(10)
+
+        MDIcon:
+            id: lbl_ic
+            icon: root.icon
+            theme_text_color: 'Custom'
+            text_color: 1, 1, 1, 1
+            size_hint_x: None
+            #width: self.texture_size[0]
 
 
 <MDRectangleFlatButton>
@@ -685,6 +701,10 @@ class MDTextButton(ThemableBehavior, Button):
         return super().on_press(*args)
 
 
+class MDCustomRoundIconButton(CircularRippleBehavior, ButtonBehavior, Image):
+    pass
+
+
 class MDFillRoundFlatButton(MDRoundFlatButton):
     pass
 
@@ -695,3 +715,8 @@ class MDRectangleFlatIconButton(BaseFlatIconButton):
 
 class MDRoundFlatIconButton(MDRoundFlatButton, BaseFlatIconButton):
     pass
+
+
+class MDFillRoundFlatIconButton(MDFillRoundFlatButton):
+    icon = StringProperty('android')
+    increment_width = dp(80)
